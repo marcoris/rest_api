@@ -1,0 +1,50 @@
+version: '3.8'
+
+networks:
+  nginx-php8-mysql8:
+
+services:
+  nginx-service:
+    image: nginx:stable-alpine
+    container_name: nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./app:/var/www/project
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php8-service
+      - mysql8-service
+    networks:
+      - nginx-php8-mysql8
+
+  php8-service:
+    build:
+      context: docker/php
+    container_name: php
+    extra_hosts:
+      - host.docker.local:host-gateway
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./app:/var/www/project
+      - ./docker/php/ini/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+      - ./docker/php/ini/error_reporting.ini:/usr/local/etc/php/conf.d/error_reporting.ini
+    networks:
+      - nginx-php8-mysql8
+
+  mysql8-service:
+    image: mysql:8.0
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_PASSWORD: secret
+    networks:
+      - nginx-php8-mysql8
