@@ -52,5 +52,5 @@
 /.web-server-pid
 .idea
 mysql
-app
 .env
+vendor
