@@ -32,6 +32,18 @@ In the header: the token
 
 In the body: { json }
 
+## NGINX
+1. Organize configuration
+2. Single client-facing hostname
+3. Separate definition from policy
+4. Microservices routing
+5. Send appropriate errors
+6. Limit authentication options
+7. Protect API keys
+8. Know why you are rate limiting (mehrere aufrufe gleichzeitig)
+9. Inspect the request method
+10. Inspect body if necessary
+
 ## TODOs
 - [ ] Add PHPUnit tests
 - [ ] Add Swagger UI
