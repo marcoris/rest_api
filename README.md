@@ -1,5 +1,5 @@
 # REST api v1 - sending and receiving json data
-<img src="rest_api.png">
+<img src="https://github.com/marcoris/rest_api/blob/master/restapi.png">
 ## Usage
 Run `docker compose up -d --build` and check if the api is working over `http://localhost:8080`
 
